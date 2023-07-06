@@ -35,11 +35,17 @@ namespace The_Long_Dark_Save_Editor_2.Helpers
             { "MarshRegion", new MapInfo {origo = new Point(211, 3531), width = 3200, height = 3894, pixelsPerCoordinate = 1.5f} },
             { "RavineTransitionZone", new MapInfo {origo = new Point(1949, 830), width = 2350, height = 1464, pixelsPerCoordinate = 1.5f} },
             { "HighwayTransitionZone", new MapInfo {origo = new Point(108, 1732), width = 2100, height = 2310, pixelsPerCoordinate = 0.986f} },
-            { "TracksRegion", new MapInfo {origo = new Point(-12, 459), width = 2600, height = 2325, pixelsPerCoordinate = 1.5f} },
+            { "TracksRegion", new MapInfo {origo = new Point(-12, 459), width = 2600, height = 2325, pixelsPerCoordinate = 1.39625f} },
+            //{ "TracksRegion", new MapInfo {origo = new Point(397, 944), width = 4096, height = 3933, pixelsPerCoordinate = 1.7835f} },
             { "RiverValleyRegion", new MapInfo {origo = new Point(159, 2977), width = 3200, height = 3401, pixelsPerCoordinate = 1.5f} },
             { "MountainTownRegion", new MapInfo {origo = new Point(62, 3864), width = 3500, height = 4231, pixelsPerCoordinate = 1.5f} },
             { "CanneryRegion", new MapInfo {origo = new Point(2126, 2129), width = 3800, height = 3955, pixelsPerCoordinate = 1.5f} },
-            { "AshCanyonRegion", new MapInfo {origo = new Point(1746, 1721), width = 3500, height = 4086, pixelsPerCoordinate = 1.5f} }
+            { "AshCanyonRegion", new MapInfo {origo = new Point(1746, 1721), width = 3500, height = 4086, pixelsPerCoordinate = 1.5f} },
+            { "AirfieldRegion", new MapInfo {origo = new Point(2046, 2041), width = 4096, height = 5042, pixelsPerCoordinate = 1.366153846153846f} },
+            { "BlackrockRegion", new MapInfo {origo = new Point(1750, 1721), width = 3500, height = 4086, pixelsPerCoordinate = 1.5f} },
+            { "HubRegion", new MapInfo {origo = new Point(1746, 2509), width = 4096, height = 4942, pixelsPerCoordinate = 3.286f} },
+            { "LongRailTransitionZone", new MapInfo {origo = new Point(1991, 4927), width = 4096, height = 8213, pixelsPerCoordinate = 3.375789473684211f} },
+            { "WindingRiverRegion", new MapInfo {origo = new Point(1436, 2218), width = 3850, height = 3325, pixelsPerCoordinate = 2.366666666666667f} },
         };
 
         public static List<string> MapNames

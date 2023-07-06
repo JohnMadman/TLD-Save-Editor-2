@@ -177,6 +177,21 @@
                             <TabItem Header="AshCanyon">
                                 <tabs:ItemMapTab SelectedObject="AshCanyonRegion"/>
                             </TabItem>
+                            <TabItem Header="Airfield">
+                                <tabs:ItemMapTab SelectedObject="AirfieldRegion"/>
+                            </TabItem>
+                            <TabItem Header="Blackrock">
+                                <tabs:ItemMapTab SelectedObject="BlackrockRegion"/>
+                            </TabItem>
+                            <TabItem Header="Hub">
+                                <tabs:ItemMapTab SelectedObject="HubRegion"/>
+                            </TabItem>
+                            <TabItem Header="LongRailTransition">
+                                <tabs:ItemMapTab SelectedObject="LongRailTransitionZone"/>
+                            </TabItem>
+                            <TabItem Header="WindingRiver">
+                                <tabs:ItemMapTab SelectedObject="WindingRiverRegion"/>
+                            </TabItem>
                         </TabControl>
                     </TabItem>
                 </dragablz:TabablzControl>

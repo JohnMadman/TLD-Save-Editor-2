@@ -32,7 +32,12 @@ namespace The_Long_Dark_Save_Editor_2.Game_data
         RiverValleyRegion,
         MountainTownRegion,
         CanneryRegion,
-        AshCanyonRegion
+        AshCanyonRegion,
+        AirfieldRegion,
+        BlackrockRegion,
+        HubRegion,
+        LongRailTransitionZone,
+        WindingRiverRegion,
     }
 
     // -----
@@ -330,7 +335,12 @@ namespace The_Long_Dark_Save_Editor_2.Game_data
         TracksRegion,
         RiverValleyRegion,
         CanneryRegion,
-        AshCanyonRegion
+        AshCanyonRegion,
+        AirfieldRegion,
+        BlackrockRegion,
+        HubRegion,
+        LongRailTransitionZone,
+        WindingRiverRegion,
     }
 
     public enum UpSell

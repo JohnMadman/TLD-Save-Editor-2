@@ -21,6 +21,11 @@
         <Image x:Key="RiverValleyRegion" Source="../Images/RiverValleyRegion.jpg"/>
         <Image x:Key="CanneryRegion" Source="../Images/CanneryRegion.jpg"/>
         <Image x:Key="AshCanyonRegion" Source="../Images/AshCanyonRegion.jpg"/>
+        <Image x:Key="AirfieldRegion" Source="../Images/AirfieldRegion.jpg"/>
+        <Image x:Key="BlackrockRegion" Source="../Images/BlackrockRegion.jpg"/>
+        <Image x:Key="HubRegion" Source="../Images/HubRegion.jpg"/>
+        <Image x:Key="LongRailTransitionZone" Source="../Images/LongRailTransitionZone.jpg"/>
+        <Image x:Key="WindingRiverRegion" Source="../Images/WindingRiverRegion.jpg"/>
 
     </UserControl.Resources>
     <Grid>
