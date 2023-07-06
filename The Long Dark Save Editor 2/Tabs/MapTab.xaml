@@ -8,19 +8,19 @@
         d:DesignHeight="478" d:DesignWidth="882"
         mc:Ignorable="d" Loaded="UserControl_Loaded">
     <UserControl.Resources>
-        <Image x:Key="CoastalRegion" Source="../Images/CoastalHighwaySF.png"/>
-        <Image x:Key="LakeRegion" Source="../Images/MysteryLakeSF.png"/>
-        <Image x:Key="WhalingStationRegion" Source="../Images/DesolationPointSF.png"/>
-        <Image x:Key="RuralRegion" Source="../Images/PleasantValleySF.png"/>
-        <Image x:Key="CrashMountainRegion" Source="../Images/TimberwolfMountainSF.png"/>
-        <Image x:Key="MarshRegion" Source="../Images/ForlomMuskeg.png"/>
-        <Image x:Key="RavineTransitionZone" Source="../Images/RavineSF.png"/>
-        <Image x:Key="HighwayTransitionZone" Source="../Images/CrumblingHighwaySF.png"/>
-        <Image x:Key="MountainTownRegion" Source="../Images/MountainTownSF.png"/>
-        <Image x:Key="TracksRegion" Source="../Images/BrokenRailroadSF.png"/>
-        <Image x:Key="RiverValleyRegion" Source="../Images/HushedRiverValleySF.png"/>
-        <Image x:Key="CanneryRegion" Source="../Images/CanneryRegion.png"/>
-        <Image x:Key="AshCanyonRegion" Source="../Images/AshCanyonRegion.png"/>
+        <Image x:Key="CoastalRegion" Source="../Images/CoastalRegion.jpg"/>
+        <Image x:Key="LakeRegion" Source="../Images/LakeRegion.jpg"/>
+        <Image x:Key="WhalingStationRegion" Source="../Images/WhalingStationRegion.jpg"/>
+        <Image x:Key="RuralRegion" Source="../Images/RuralRegion.jpg"/>
+        <Image x:Key="CrashMountainRegion" Source="../Images/CrashMountainRegion.jpg"/>
+        <Image x:Key="MarshRegion" Source="../Images/MarshRegion.jpg"/>
+        <Image x:Key="RavineTransitionZone" Source="../Images/RavineTransitionZone.jpg"/>
+        <Image x:Key="HighwayTransitionZone" Source="../Images/HighwayTransitionZone.jpg"/>
+        <Image x:Key="MountainTownRegion" Source="../Images/MountainTownRegion.jpg"/>
+        <Image x:Key="TracksRegion" Source="../Images/TracksRegion.jpg"/>
+        <Image x:Key="RiverValleyRegion" Source="../Images/RiverValleyRegion.jpg"/>
+        <Image x:Key="CanneryRegion" Source="../Images/CanneryRegion.jpg"/>
+        <Image x:Key="AshCanyonRegion" Source="../Images/AshCanyonRegion.jpg"/>
 
     </UserControl.Resources>
     <Canvas x:Name="canvas" Height="{Binding ActualHeight, ElementName=userControl, Mode=OneWay}" MouseLeftButtonDown="canvas_MouseLeftButtonDown" MouseWheel="canvas_MouseWheel" MouseMove="canvas_MouseMove"  

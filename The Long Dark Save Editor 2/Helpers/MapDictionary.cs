@@ -27,19 +27,19 @@ namespace The_Long_Dark_Save_Editor_2.Helpers
     {
         private static Dictionary<string, MapInfo> dict = new Dictionary<string, MapInfo>
         {
-            { "CoastalRegion",new MapInfo {origo = new Point(1441, 1426), width = 2687, height = 2065, pixelsPerCoordinate = 0.98541666666f} },
-            { "LakeRegion", new MapInfo {origo = new Point(343, 2037), width = 2330, height = 2330, pixelsPerCoordinate = 0.9999f} },
-            { "WhalingStationRegion", new MapInfo {origo = new Point(94.5, 2018.3), width = 1434, height = 1477, pixelsPerCoordinate = 0.98583333333f} },
-            { "RuralRegion", new MapInfo {origo = new Point(-58, 2209), width = 2000, height = 2245, pixelsPerCoordinate = 0.68233333333f} },
-            { "CrashMountainRegion", new MapInfo {origo = new Point(62.5, 2006), width = 2124, height = 2349, pixelsPerCoordinate = 0.98476190476f} },
-            { "MarshRegion", new MapInfo {origo = new Point(132, 2193), width = 1988, height = 2419, pixelsPerCoordinate = 0.937f} },
-            { "RavineTransitionZone", new MapInfo {origo = new Point(1275.5, 543.5), width = 1538, height = 958, pixelsPerCoordinate = 0.98538461538f} },
-            { "HighwayTransitionZone", new MapInfo {origo = new Point(88, 905.2), width = 1182, height = 787, pixelsPerCoordinate = 0.986f} },
-            { "TracksRegion", new MapInfo {origo = new Point(308, 1746), width = 1763, height = 2007, pixelsPerCoordinate = 0.9385f} },
-            { "RiverValleyRegion", new MapInfo {origo = new Point(99.18, 1832), width = 1968, height = 2092, pixelsPerCoordinate = 0.9385f} },
-            { "MountainTownRegion", new MapInfo {origo = new Point(38.15, 2380), width = 2156, height = 2606, pixelsPerCoordinate = 0.9385f} },
-            { "CanneryRegion", new MapInfo {origo = new Point(1399, 1401), width = 2500, height = 2602, pixelsPerCoordinate = 1.0f} },
-            { "AshCanyonRegion", new MapInfo {origo = new Point(1133.7, 1118), width = 2274, height = 2655, pixelsPerCoordinate = 1.0f} }
+            { "CoastalRegion",new MapInfo {origo = new Point(2201, 2176), width = 4100, height = 3151, pixelsPerCoordinate = 1.5f} },
+            { "LakeRegion", new MapInfo {origo = new Point(397, 3065), width = 3246, height = 3500, pixelsPerCoordinate = 1.5f} },
+            { "WhalingStationRegion", new MapInfo {origo = new Point(174, 2730), width = 2610, height = 2751, pixelsPerCoordinate = 1.5f} },
+            { "RuralRegion", new MapInfo {origo = new Point(80, -124), width = 4950, height = 4926, pixelsPerCoordinate = 1.5f} },
+            { "CrashMountainRegion", new MapInfo {origo = new Point(89, 2988), width = 3165, height = 3575, pixelsPerCoordinate = 1.5f} },
+            { "MarshRegion", new MapInfo {origo = new Point(211, 3531), width = 3200, height = 3894, pixelsPerCoordinate = 1.5f} },
+            { "RavineTransitionZone", new MapInfo {origo = new Point(1949, 830), width = 2350, height = 1464, pixelsPerCoordinate = 1.5f} },
+            { "HighwayTransitionZone", new MapInfo {origo = new Point(108, 1732), width = 2100, height = 2310, pixelsPerCoordinate = 0.986f} },
+            { "TracksRegion", new MapInfo {origo = new Point(-12, 459), width = 2600, height = 2325, pixelsPerCoordinate = 1.5f} },
+            { "RiverValleyRegion", new MapInfo {origo = new Point(159, 2977), width = 3200, height = 3401, pixelsPerCoordinate = 1.5f} },
+            { "MountainTownRegion", new MapInfo {origo = new Point(62, 3864), width = 3500, height = 4231, pixelsPerCoordinate = 1.5f} },
+            { "CanneryRegion", new MapInfo {origo = new Point(2126, 2129), width = 3800, height = 3955, pixelsPerCoordinate = 1.5f} },
+            { "AshCanyonRegion", new MapInfo {origo = new Point(1746, 1721), width = 3500, height = 4086, pixelsPerCoordinate = 1.5f} }
         };
 
         public static List<string> MapNames
