@@ -139,7 +139,7 @@ namespace The_Long_Dark_Save_Editor_2
 
         private void UpdateSaves()
         {
-            var path = Path.Combine(Util.GetLocalPath(), testBranch ? "HinterlandTest2" : "Hinterland", "TheLongDark");
+            var path = Path.Combine(Util.GetLocalPath(), testBranch ? "HinterlandTest2" : "Hinterland", "TheLongDark", "Survival");
             Debug.WriteLine(path);
 
             if (Directory.Exists(path))

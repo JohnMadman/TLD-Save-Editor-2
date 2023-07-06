@@ -23,6 +23,11 @@ namespace The_Long_Dark_Save_Editor_2.Serialization
 
         }
 
+        public static object GetObject(string json)
+        {
+            return JObject.Parse(json, jsonLoadSettings);
+        }
+
         private dynamic Parse(JToken token, Type t, DeserializeAttribute attr = null)
         {
             bool deserialize = attr?.Json ?? false;

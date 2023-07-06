@@ -77,20 +77,20 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" Height="40" Grid.Column="0">
                     <ComboBox Margin="10 0 0 0" Name="ccSaves" ItemsSource="{Binding Saves}" DisplayMemberPath="Description" SelectedValuePath="Value" Width="220" SelectedIndex="0" SelectionChanged="CurrentSaveSelectionChanged"/>
-                    <Button Margin="10 0 0 0" Click="MenuItem_Click" Style="{StaticResource MaterialDesignFlatButtonNoRounding}" Content="{x:Static p:Resources.Save}" Height="40"/>
+                    <!--<Button Margin="10 0 0 0" Click="MenuItem_Click" Style="{StaticResource MaterialDesignFlatButtonNoRounding}" Content="{x:Static p:Resources.Save}" Height="40"/>-->
                     <Button Margin="10 0 0 0" Click="RefreshClicked" Style="{StaticResource MaterialDesignFlatButtonNoRounding}" Content="{x:Static p:Resources.Refresh}" Height="40"/>
                     <Button Margin="10 0 0 0" Click="OpenBackupsClicked" Style="{StaticResource MaterialDesignFlatButtonNoRounding}" Content="{x:Static p:Resources.Backups}" Height="40"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0 0 20 0">
                     <Button Style="{StaticResource MaterialDesignFlatButtonNoRounding}" Foreground="#7289DA" Click="JoinDiscordClicked" Height="40">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Discord" Width="18" Height="18" />
+                            
                             <TextBlock Margin="8 0 0 0" VerticalAlignment="Center">Discord group</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button Style="{StaticResource MaterialDesignFlatButtonNoRounding}" Foreground="#211F1F" Click="ViewOnGitHubClicked" Height="40">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="GithubCircle" Height="20" Width="20" />
+                            
                             <TextBlock Margin="8 0 0 0" VerticalAlignment="Center">View on GitHub</TextBlock>
                         </StackPanel>
                     </Button>
@@ -136,11 +136,48 @@
                             <tabs:InventoryTab />
                         </DockPanel>
                     </TabItem>
-                    <TabItem Header="{x:Static p:Resources.About}">
-                        <StackPanel>
-                            <Rectangle Fill="#A6B8C3" Height="1" ></Rectangle>
-                            <tabs:AboutTab />
-                        </StackPanel>
+                    <TabItem Header="Карты">
+                        <TabControl TabStripPlacement="Left">
+                            <TabItem Header="Coastal">
+                                <tabs:ItemMapTab SelectedObject="CoastalRegion"/>
+                            </TabItem>
+                            <TabItem Header="Lake">
+                                <tabs:ItemMapTab SelectedObject="LakeRegion"/>
+                            </TabItem>
+                            <TabItem Header="WhalingStation">
+                                <tabs:ItemMapTab SelectedObject="WhalingStationRegion"/>
+                            </TabItem>
+                            <TabItem Header="Rural">
+                                <tabs:ItemMapTab SelectedObject="RuralRegion"/>
+                            </TabItem>
+                            <TabItem Header="CrashMountain">
+                                <tabs:ItemMapTab SelectedObject="CrashMountainRegion"/>
+                            </TabItem>
+                            <TabItem Header="Marsh">
+                                <tabs:ItemMapTab SelectedObject="MarshRegion"/>
+                            </TabItem>
+                            <TabItem Header="RavineTransition">
+                                <tabs:ItemMapTab SelectedObject="RavineTransitionZone"/>
+                            </TabItem>
+                            <TabItem Header="HighwayTransition">
+                                <tabs:ItemMapTab SelectedObject="HighwayTransitionZone"/>
+                            </TabItem>
+                            <TabItem Header="Tracks">
+                                <tabs:ItemMapTab SelectedObject="TracksRegion"/>
+                            </TabItem>
+                            <TabItem Header="RiverValley">
+                                <tabs:ItemMapTab SelectedObject="RiverValleyRegion"/>
+                            </TabItem>
+                            <TabItem Header="MountainTown">
+                                <tabs:ItemMapTab SelectedObject="MountainTownRegion"/>
+                            </TabItem>
+                            <TabItem Header="Cannery">
+                                <tabs:ItemMapTab SelectedObject="CanneryRegion"/>
+                            </TabItem>
+                            <TabItem Header="AshCanyon">
+                                <tabs:ItemMapTab SelectedObject="AshCanyonRegion"/>
+                            </TabItem>
+                        </TabControl>
                     </TabItem>
                 </dragablz:TabablzControl>
             </DockPanel>

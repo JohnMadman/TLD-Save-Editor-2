@@ -1,13 +1,30 @@
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.Xml.Linq;
 using The_Long_Dark_Save_Editor_2.Game_data;
 using The_Long_Dark_Save_Editor_2.Helpers;
 using The_Long_Dark_Save_Editor_2.Serialization;
 
 namespace The_Long_Dark_Save_Editor_2
 {
+
+    public class CantainerRootobject
+    {
+        public float[] m_Position { get; set; }
+        public string m_PrefabName { get; set; }
+        public string m_SearializedContainer { get; set; }
+        public string m_Guid { get; set; }
+        public bool m_NotActive { get; set; }
+    }
+
+
     public class GameSave
     {
         public static int MAX_BACKUPS = 20;
@@ -18,6 +35,9 @@ namespace The_Long_Dark_Save_Editor_2
 
         private DynamicSerializable<GlobalSaveGameFormat> dynamicGlobal;
         public GlobalSaveGameFormat Global { get { return dynamicGlobal.Obj; } }
+
+        public Dictionary<string, RegionData> MainRegions { get; set; } = new Dictionary<string, RegionData>();
+        public Dictionary<string, RegionData> OtherRegions { get; set; } = new Dictionary<string, RegionData>();
 
         public AfflictionsContainer Afflictions { get; set; }
 
@@ -34,12 +54,23 @@ namespace The_Long_Dark_Save_Editor_2
             string slotJson = EncryptString.Decompress(File.ReadAllBytes(path));
             dynamicSlotData = new DynamicSerializable<SlotData>(slotJson);
 
-            var bootJson = EncryptString.Decompress(SlotData.m_Dict["boot"]);
+            var bootJson = EncryptString.Decompress(Convert.FromBase64String(SlotData.m_Dict["boot"]));
             dynamicBoot = new DynamicSerializable<BootSaveGameFormat>(bootJson);
             OriginalRegion = Boot.m_SceneName.Value;
 
-            var globalJson = EncryptString.Decompress(SlotData.m_Dict["global"]);
+            var globalJson = EncryptString.Decompress(Convert.FromBase64String(SlotData.m_Dict["global"]));
             dynamicGlobal = new DynamicSerializable<GlobalSaveGameFormat>(globalJson);
+
+            foreach (var item in SlotData.m_Dict)
+            {
+                if (item.Key == "global" || item.Key == "boot" || item.Key == "info" || item.Key == "screenshot")
+                    continue;
+
+                MainRegions[item.Key] = new DynamicSerializable<RegionData>(EncryptString.Decompress(Convert.FromBase64String(item.Value))).Obj;
+                
+                var text = EncryptString.Decompress(Convert.FromBase64String(item.Value));
+                var data = DynamicSerializable<object>.GetObject(text);
+            }
 
             Afflictions = new AfflictionsContainer(Global);
         }
@@ -50,7 +81,7 @@ namespace The_Long_Dark_Save_Editor_2
 
             LastSaved = DateTime.Now.Ticks;
             var bootSerialized = dynamicBoot.Serialize();
-            SlotData.m_Dict["boot"] = EncryptString.Compress(bootSerialized);
+            //SlotData.m_Dict["boot"] = EncryptString.Compress(bootSerialized);
 
             if (Boot.m_SceneName.Value != OriginalRegion)
             {
@@ -62,7 +93,7 @@ namespace The_Long_Dark_Save_Editor_2
             Afflictions.SerializeTo(Global);
 
             var globalSerialized = dynamicGlobal.Serialize();
-            SlotData.m_Dict["global"] = EncryptString.Compress(globalSerialized);
+            //SlotData.m_Dict["global"] = EncryptString.Compress(globalSerialized);
 
             SlotData.m_Timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
             var slotDataSerialized = dynamicSlotData.Serialize();

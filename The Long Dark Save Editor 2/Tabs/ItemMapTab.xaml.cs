@@ -1,15 +1,70 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
+using The_Long_Dark_Save_Editor_2.Game_data;
 using The_Long_Dark_Save_Editor_2.Helpers;
 
 namespace The_Long_Dark_Save_Editor_2.Tabs
 {
 
-    public partial class MapTab : UserControl
+    public partial class ItemMapTab : UserControl
     {
+        /// <summary>
+        /// Identifies the <see cref="SelectedObject"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty SelectedObjectProperty = DependencyProperty.Register(
+            nameof(SelectedObject),
+            typeof(string),
+            typeof(ItemMapTab),
+                                   new FrameworkPropertyMetadata( // Property metadata
+                                default(string), // default value
+                                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | // Flags
+                                    FrameworkPropertyMetadataOptions.Journal,
+                                new PropertyChangedCallback(OnSelectedObjectPropertyChanged),    // property changed callback
+                                new CoerceValueCallback(CoerceValue),
+                                true, // IsAnimationProhibited
+                                UpdateSourceTrigger.PropertyChanged   // DefaultUpdateSourceTrigger
+                                ));
+
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        /// <value>The value.</value>
+        public string SelectedObject
+        {
+            get
+            {
+                return (string)this.GetValue(SelectedObjectProperty);
+            }
+
+            set
+            {
+                this.SetValue(SelectedObjectProperty, value);
+            }
+        }
+
+
+        /// <summary>
+        /// Called when the <see cref="SelectedObject" /> has changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
+        private static void OnSelectedObjectPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            ((ItemMapTab)sender).InvalidateVisual();
+        }
+
+
+        static object CoerceValue(DependencyObject sender, object e)
+        {
+            return e;
+        }
+
 
         private MapInfo mapInfo;
         private bool mouseDown;
@@ -18,9 +73,7 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
 
         private Point playerPosition;
 
-        private string region;
-
-        public MapTab()
+        public ItemMapTab()
         {
             InitializeComponent();
 
@@ -31,17 +84,11 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
                     Debug.WriteLine("Currentsave changed");
                     if (MainWindow.Instance.CurrentSave == null)
                     {
-                        region = null;
                         UpdateMap();
                         return;
                     }
-                    region = MainWindow.Instance.CurrentSave.Boot.m_SceneName.Value;
-                    playerPosition = new Point(MainWindow.Instance.CurrentSave.Global.PlayerManager.m_SaveGamePosition[0], MainWindow.Instance.CurrentSave.Global.PlayerManager.m_SaveGamePosition[2]);
-                    if (!MapDictionary.MapExists(region))
-                    {
-                        region = MainWindow.Instance.CurrentSave.Global.GameManagerData.SceneTransition.m_LastOutdoorScene;
-                        playerPosition = new Point(MainWindow.Instance.CurrentSave.Global.GameManagerData.SceneTransition.m_PosBeforeInteriorLoad[0], MainWindow.Instance.CurrentSave.Global.GameManagerData.SceneTransition.m_PosBeforeInteriorLoad[2]);
-                    }
+                    //playerPosition = new Point(MainWindow.Instance.CurrentSave.Global.PlayerManager.m_SaveGamePosition[0], MainWindow.Instance.CurrentSave.Global.PlayerManager.m_SaveGamePosition[2]);
+
                     UpdateMap();
                     var saveGamePosition = MainWindow.Instance.CurrentSave.Global.PlayerManager.m_SaveGamePosition;
                     saveGamePosition.CollectionChanged += (sender2, e2) =>
@@ -49,18 +96,9 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
 
                         if ((e2.NewStartingIndex == 0 && saveGamePosition[0] != (float)playerPosition.X) || (e2.NewStartingIndex == 2 && saveGamePosition[2] != (float)playerPosition.Y))
                         {
-                            playerPosition.X = saveGamePosition[0];
-                            playerPosition.Y = saveGamePosition[2];
-                            UpdatePlayerPosition();
-                        }
-                    };
-                    MainWindow.Instance.CurrentSave.Boot.m_SceneName.PropertyChanged += (sender2, e2) =>
-                    {
-                        if ((e2.PropertyName == "Value") && (region != MainWindow.Instance.CurrentSave.Boot.m_SceneName.Value) )
-                        {
-                            region = MainWindow.Instance.CurrentSave.Boot.m_SceneName.Value;
-                            Debug.WriteLine("New region: " + region);
-                            UpdateMap();
+                            //playerPosition.X = saveGamePosition[0];
+                            //playerPosition.Y = saveGamePosition[2];
+                            //UpdatePlayerPosition();
                         }
                     };
                 }
@@ -70,9 +108,21 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
 
         private void UpdateMap()
         {
+            if (MainWindow.Instance.CurrentSave == null)
+                return;
+
             if (!IsLoaded)
                 return;
-            if (region == null)
+
+            if (SelectedObject != null && Enum.TryParse<RegionsWithMap>(SelectedObject, out var region))
+            {
+                if (MainWindow.Instance.CurrentSave.MainRegions.TryGetValue(SelectedObject, out var item))
+                    listBox1.ItemsSource = item.GearManagerData.Items;
+                else
+                    listBox1.ItemsSource = null;
+            }
+
+            if (SelectedObject == null)
             {
                 mapImage.Source = null;
                 mapInfo = null;
@@ -80,7 +130,7 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
                 
                 return;
             }
-            if (!MapDictionary.MapExists(region))
+            if (!MapDictionary.MapExists(SelectedObject))
             {
                 mapImage.Source = null;
                 mapInfo = null;
@@ -91,8 +141,8 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
             player.Visibility = Visibility.Visible;
             
 
-            mapInfo = MapDictionary.GetMapInfo(region);
-            mapImage.Source = ((Image)Resources[region]).Source;
+            mapInfo = MapDictionary.GetMapInfo(SelectedObject);
+            mapImage.Source = ((Image)Resources[SelectedObject]).Source;
             mapImage.Width = mapInfo.width;
             mapImage.Height = mapInfo.height;
 
@@ -123,11 +173,11 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
             canvas.ReleaseMouseCapture();
             if (e.GetPosition(canvas) == clickPosition)
             {
-                playerPosition = mapInfo.ToRegion(e.GetPosition(mapImage));
-                UpdatePlayerPosition();
-                MainWindow.Instance.CurrentSave.Boot.m_SceneName.Value = region;
-                MainWindow.Instance.CurrentSave.Global.PlayerManager.m_SaveGamePosition[0] = (float)playerPosition.X;
-                MainWindow.Instance.CurrentSave.Global.PlayerManager.m_SaveGamePosition[2] = (float)playerPosition.Y;
+                //playerPosition = mapInfo.ToRegion(e.GetPosition(mapImage));
+                //UpdatePlayerPosition();
+                //MainWindow.Instance.CurrentSave.Boot.m_SceneName.Value = SelectedObject;
+                //MainWindow.Instance.CurrentSave.Global.PlayerManager.m_SaveGamePosition[0] = (float)playerPosition.X;
+                //MainWindow.Instance.CurrentSave.Global.PlayerManager.m_SaveGamePosition[2] = (float)playerPosition.Y;
             }
         }
 
@@ -184,6 +234,17 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             UpdateMap();
+        }
+
+        private void listBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(listBox1.SelectedItem is InventoryItemSaveData inventory)
+            {
+                playerPosition.X = inventory.GearNew.m_Position[0];
+                playerPosition.Y = inventory.GearNew.m_Position[2];
+
+                UpdateMap();
+            }
         }
     }
 }
