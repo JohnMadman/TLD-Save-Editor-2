@@ -40,8 +40,7 @@
             <DataTemplate DataType="{x:Type viewModels:BusyDialogViewModel}">
                 <StackPanel Margin="10">
                     <TextBlock Margin="10" HorizontalAlignment="Center" Text="{Binding Text, Mode=OneWay}"></TextBlock>
-                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
-                     Value="0" IsIndeterminate="True" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="30" Height="30" Margin="10"/>
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="30" Height="30" Margin="10"/>
                 </StackPanel>
             </DataTemplate>
             
@@ -137,62 +136,91 @@
                         </DockPanel>
                     </TabItem>
                     <TabItem Header="Карты">
-                        <TabControl TabStripPlacement="Left">
-                            <TabItem Header="Coastal">
-                                <tabs:ItemMapTab SelectedObject="CoastalRegion"/>
-                            </TabItem>
-                            <TabItem Header="Lake">
-                                <tabs:ItemMapTab SelectedObject="LakeRegion"/>
-                            </TabItem>
-                            <TabItem Header="WhalingStation">
-                                <tabs:ItemMapTab SelectedObject="WhalingStationRegion"/>
-                            </TabItem>
-                            <TabItem Header="Rural">
-                                <tabs:ItemMapTab SelectedObject="RuralRegion"/>
-                            </TabItem>
-                            <TabItem Header="CrashMountain">
-                                <tabs:ItemMapTab SelectedObject="CrashMountainRegion"/>
-                            </TabItem>
-                            <TabItem Header="Marsh">
-                                <tabs:ItemMapTab SelectedObject="MarshRegion"/>
-                            </TabItem>
-                            <TabItem Header="RavineTransition">
-                                <tabs:ItemMapTab SelectedObject="RavineTransitionZone"/>
-                            </TabItem>
-                            <TabItem Header="HighwayTransition">
-                                <tabs:ItemMapTab SelectedObject="HighwayTransitionZone"/>
-                            </TabItem>
-                            <TabItem Header="Tracks">
-                                <tabs:ItemMapTab SelectedObject="TracksRegion"/>
-                            </TabItem>
-                            <TabItem Header="RiverValley">
-                                <tabs:ItemMapTab SelectedObject="RiverValleyRegion"/>
-                            </TabItem>
-                            <TabItem Header="MountainTown">
-                                <tabs:ItemMapTab SelectedObject="MountainTownRegion"/>
-                            </TabItem>
-                            <TabItem Header="Cannery">
-                                <tabs:ItemMapTab SelectedObject="CanneryRegion"/>
-                            </TabItem>
-                            <TabItem Header="AshCanyon">
-                                <tabs:ItemMapTab SelectedObject="AshCanyonRegion"/>
-                            </TabItem>
-                            <TabItem Header="Airfield">
-                                <tabs:ItemMapTab SelectedObject="AirfieldRegion"/>
-                            </TabItem>
-                            <TabItem Header="Blackrock">
-                                <tabs:ItemMapTab SelectedObject="BlackrockRegion"/>
-                            </TabItem>
-                            <TabItem Header="Hub">
-                                <tabs:ItemMapTab SelectedObject="HubRegion"/>
-                            </TabItem>
-                            <TabItem Header="LongRailTransition">
-                                <tabs:ItemMapTab SelectedObject="LongRailTransitionZone"/>
-                            </TabItem>
-                            <TabItem Header="WindingRiver">
-                                <tabs:ItemMapTab SelectedObject="WindingRiverRegion"/>
-                            </TabItem>
-                        </TabControl>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <ListView x:Name="regions" ItemsSource="{Binding Regions}" Grid.Column="0">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+                            <tabs:ItemMapTab HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectedObject="{Binding ElementName=regions, Path=SelectedItem.Name}"/>
+
+                            <!--<TabControl TabStripPlacement="Left" ItemsSource="{Binding Regions}" Grid.Column="1">
+                                <TabControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </TabControl.ItemTemplate>
+                                <TabControl.ContentTemplate>
+                                    <DataTemplate>
+                                        --><!--<tabs:ItemMapTab SelectedObject="{Binding}"/>--><!--
+                                    </DataTemplate>
+                                </TabControl.ContentTemplate>
+                            
+                                --><!--<TabItem Header="Coastal">
+                                    <tabs:ItemMapTab SelectedObject="CoastalRegion"/>
+                                </TabItem>
+                                <TabItem Header="Lake">
+                                    <tabs:ItemMapTab SelectedObject="LakeRegion"/>
+                                </TabItem>
+                                <TabItem Header="WhalingStation">
+                                    <tabs:ItemMapTab SelectedObject="WhalingStationRegion"/>
+                                </TabItem>
+                                <TabItem Header="Rural">
+                                    <tabs:ItemMapTab SelectedObject="RuralRegion"/>
+                                </TabItem>
+                                <TabItem Header="CrashMountain">
+                                    <tabs:ItemMapTab SelectedObject="CrashMountainRegion"/>
+                                </TabItem>
+                                <TabItem Header="Marsh">
+                                    <tabs:ItemMapTab SelectedObject="MarshRegion"/>
+                                </TabItem>
+                                <TabItem Header="RavineTransition">
+                                    <tabs:ItemMapTab SelectedObject="RavineTransitionZone"/>
+                                </TabItem>
+                                <TabItem Header="HighwayTransition">
+                                    <tabs:ItemMapTab SelectedObject="HighwayTransitionZone"/>
+                                </TabItem>
+                                <TabItem Header="Tracks">
+                                    <tabs:ItemMapTab SelectedObject="TracksRegion"/>
+                                </TabItem>
+                                <TabItem Header="RiverValley">
+                                    <tabs:ItemMapTab SelectedObject="RiverValleyRegion"/>
+                                </TabItem>
+                                <TabItem Header="MountainTown">
+                                    <tabs:ItemMapTab SelectedObject="MountainTownRegion"/>
+                                </TabItem>
+                                <TabItem Header="Cannery">
+                                    <tabs:ItemMapTab SelectedObject="CanneryRegion"/>
+                                </TabItem>
+                                <TabItem Header="AshCanyon">
+                                    <tabs:ItemMapTab SelectedObject="AshCanyonRegion"/>
+                                </TabItem>
+                                <TabItem Header="Airfield">
+                                    <tabs:ItemMapTab SelectedObject="AirfieldRegion"/>
+                                </TabItem>
+                                <TabItem Header="Blackrock">
+                                    <tabs:ItemMapTab SelectedObject="BlackrockRegion"/>
+                                </TabItem>
+                                <TabItem Header="Hub">
+                                    <tabs:ItemMapTab SelectedObject="HubRegion"/>
+                                </TabItem>
+                                <TabItem Header="LongRailTransition">
+                                    <tabs:ItemMapTab SelectedObject="LongRailTransitionZone"/>
+                                </TabItem>
+                                <TabItem Header="WindingRiver">
+                                    <tabs:ItemMapTab SelectedObject="WindingRiverRegion"/>
+                                </TabItem>--><!--
+                            </TabControl>-->
+
+                        </Grid>
                     </TabItem>
                 </dragablz:TabablzControl>
             </DockPanel>

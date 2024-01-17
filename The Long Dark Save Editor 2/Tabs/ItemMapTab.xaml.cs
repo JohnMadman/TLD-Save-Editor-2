@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -56,6 +57,7 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
         /// <param name="e">The event args.</param>
         private static void OnSelectedObjectPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
+            ((ItemMapTab)sender).UpdateMap();
             ((ItemMapTab)sender).InvalidateVisual();
         }
 
@@ -114,12 +116,16 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
             if (!IsLoaded)
                 return;
 
-            if (SelectedObject != null && Enum.TryParse<RegionsWithMap>(SelectedObject, out var region))
+            if (SelectedObject != null)// && Enum.TryParse<RegionsWithMap>(SelectedObject, out var region))
             {
+                listBox1.ItemsSource = null;
+
                 if (MainWindow.Instance.CurrentSave.MainRegions.TryGetValue(SelectedObject, out var item))
-                    listBox1.ItemsSource = item.GearManagerData.Items;
-                else
-                    listBox1.ItemsSource = null;
+                {
+                    var items = item.GearManagerData?.Items?.ToList();
+                    items.RemoveAll(p => p.m_PrefabName == "GEAR_CattailTinder");
+                    listBox1.ItemsSource = items.OrderBy(p => p.InGameName);
+                }
             }
 
             if (SelectedObject == null)
@@ -130,19 +136,27 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
                 
                 return;
             }
-            if (!MapDictionary.MapExists(SelectedObject))
-            {
-                mapImage.Source = null;
-                mapInfo = null;
-                player.Visibility = Visibility.Hidden;
+            //if (!MapDictionary.MapExists(SelectedObject))
+            //{
+            //    mapImage.Source = null;
+            //    mapInfo = null;
+            //    player.Visibility = Visibility.Hidden;
                 
-                return;
-            }
+            //    return;
+            //}
             player.Visibility = Visibility.Visible;
-            
 
-            mapInfo = MapDictionary.GetMapInfo(SelectedObject);
-            mapImage.Source = ((Image)Resources[SelectedObject]).Source;
+            var imgSource = ((Image)Resources[SelectedObject])?.Source;
+
+            if (imgSource == null)
+                imgSource = ((Image)Resources["blank"]).Source;
+
+            if (MapDictionary.GetMapInfo(SelectedObject) is MapInfo mi)
+                mapInfo = mi;
+            else
+                mapInfo = MapDictionary.GetMapInfo("blank");
+
+            mapImage.Source = imgSource;
             mapImage.Width = mapInfo.width;
             mapImage.Height = mapInfo.height;
 

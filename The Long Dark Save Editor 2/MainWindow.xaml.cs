@@ -18,9 +18,18 @@ using The_Long_Dark_Save_Editor_2.Serialization;
 
 namespace The_Long_Dark_Save_Editor_2
 {
+    public class RegionWrapper
+    {
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+    }
 
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+
+        public ObservableCollection<RegionWrapper> Regions { get; set; } = new ObservableCollection<RegionWrapper>();
+
         public static MainWindow Instance { get; set; }
         public static VersionData Version { get { return new VersionData() { version = "2.18" }; } }
 
@@ -59,6 +68,7 @@ namespace The_Long_Dark_Save_Editor_2
         private FileSystemWatcher appDataFileWatcher;
 
         private bool currentSaveChanged = false;
+
 
         public MainWindow()
         {
@@ -263,6 +273,17 @@ namespace The_Long_Dark_Save_Editor_2
                 var save = new GameSave();
                 save.LoadSave(path);
                 CurrentSave = save;
+
+                Regions.Clear();
+                if (CurrentSave != null)
+                {
+                    var copy = CurrentSave.MainRegions.Keys.ToList();
+                    copy.Sort();
+                    foreach (var item in copy)
+                    {
+                        Regions.Add(new RegionWrapper() { Name = item, Description = item });
+                    }
+                }
             }
             catch (Exception ex)
             {
