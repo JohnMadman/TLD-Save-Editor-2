@@ -57,7 +57,7 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
         /// <param name="e">The event args.</param>
         private static void OnSelectedObjectPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            ((ItemMapTab)sender).UpdateMap();
+            ((ItemMapTab)sender).UpdateMap(true);
             ((ItemMapTab)sender).InvalidateVisual();
         }
 
@@ -74,6 +74,7 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
         private Point lastMousePosition;
 
         private Point playerPosition;
+        private Point itemPosition;
 
         public ItemMapTab()
         {
@@ -86,10 +87,9 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
                     Debug.WriteLine("Currentsave changed");
                     if (MainWindow.Instance.CurrentSave == null)
                     {
-                        UpdateMap();
+                        UpdateMap(true);
                         return;
                     }
-                    //playerPosition = new Point(MainWindow.Instance.CurrentSave.Global.PlayerManager.m_SaveGamePosition[0], MainWindow.Instance.CurrentSave.Global.PlayerManager.m_SaveGamePosition[2]);
 
                     UpdateMap();
                     var saveGamePosition = MainWindow.Instance.CurrentSave.Global.PlayerManager.m_SaveGamePosition;
@@ -108,8 +108,10 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
 
         }
 
-        private void UpdateMap()
+        private void UpdateMap(bool reset = false)
         {
+            playerPosition = new Point(MainWindow.Instance.CurrentSave.Global.PlayerManager.m_SaveGamePosition[0], MainWindow.Instance.CurrentSave.Global.PlayerManager.m_SaveGamePosition[2]);
+
             if (MainWindow.Instance.CurrentSave == null)
                 return;
 
@@ -141,32 +143,40 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
             //    mapImage.Source = null;
             //    mapInfo = null;
             //    player.Visibility = Visibility.Hidden;
-                
+
             //    return;
             //}
-            player.Visibility = Visibility.Visible;
 
-            var imgSource = ((Image)Resources[SelectedObject])?.Source;
+            if (reset)
+            {
+                player.Visibility = Visibility.Visible;
 
-            if (imgSource == null)
-                imgSource = ((Image)Resources["blank"]).Source;
+                var imgSource = ((Image)Resources[SelectedObject])?.Source;
 
-            if (MapDictionary.GetMapInfo(SelectedObject) is MapInfo mi)
-                mapInfo = mi;
-            else
-                mapInfo = MapDictionary.GetMapInfo("blank");
+                if (imgSource == null)
+                    imgSource = ((Image)Resources["blank"]).Source;
 
-            mapImage.Source = imgSource;
-            mapImage.Width = mapInfo.width;
-            mapImage.Height = mapInfo.height;
+                if (MapDictionary.GetMapInfo(SelectedObject) is MapInfo mi)
+                    mapInfo = mi;
+                else
+                    mapInfo = MapDictionary.GetMapInfo("blank");
 
-            double wScale = canvas.ActualWidth / mapInfo.width;
-            double hScale = canvas.ActualHeight / mapInfo.height;
-            scaleMap.ScaleX = Math.Max(Math.Min(wScale, hScale), 0.5);
-            scaleMap.ScaleY = Math.Max(Math.Min(wScale, hScale), 0.5);
+                mapImage.Source = imgSource;
+                mapImage.Width = mapInfo.width;
+                mapImage.Height = mapInfo.height;
 
-            scaleOfPlayerIcon.ScaleX = 1 / scaleMap.ScaleX;
-            scaleOfPlayerIcon.ScaleY = 1 / scaleMap.ScaleY;
+                double wScale = canvas.ActualWidth / mapInfo.width;
+                double hScale = canvas.ActualHeight / mapInfo.height;
+                scaleMap.ScaleX = Math.Max(Math.Min(wScale, hScale), 0.5);
+                scaleMap.ScaleY = Math.Max(Math.Min(wScale, hScale), 0.5);
+
+                scaleOfPlayerIcon.ScaleX = 1 / scaleMap.ScaleX;
+                scaleOfPlayerIcon.ScaleY = 1 / scaleMap.ScaleY;
+
+                scaleOfItemIcon.ScaleX = 1 / scaleMap.ScaleX;
+                scaleOfItemIcon.ScaleY = 1 / scaleMap.ScaleY;
+            }
+
             UpdatePlayerPosition();
         }
 
@@ -232,32 +242,39 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
 
             scaleOfPlayerIcon.ScaleX = 1 / scaleMap.ScaleX;
             scaleOfPlayerIcon.ScaleY = 1 / scaleMap.ScaleY;
+
+            scaleOfItemIcon.ScaleX = 1 / scaleMap.ScaleX;
+            scaleOfItemIcon.ScaleY = 1 / scaleMap.ScaleY;
         }
 
         private void UpdatePlayerPosition()
         {
-            UpdatePlayerPosition(mapInfo.ToLayer(playerPosition));
+            var pPoint = mapInfo.ToLayer(playerPosition);
+
+            Canvas.SetLeft(player, pPoint.X);
+            Canvas.SetTop(player, pPoint.Y);
+
+            var iPoint = mapInfo.ToLayer(itemPosition);
+
+            Canvas.SetLeft(cross, iPoint.X);
+            Canvas.SetTop(cross, iPoint.Y);
+
         }
 
-        private void UpdatePlayerPosition(Point layerPoint)
-        {
-            Canvas.SetLeft(player, layerPoint.X);
-            Canvas.SetTop(player, layerPoint.Y);
-        }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            UpdateMap();
+            UpdateMap(true);
         }
 
         private void listBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(listBox1.SelectedItem is InventoryItemSaveData inventory)
             {
-                playerPosition.X = inventory.GearNew.m_Position[0];
-                playerPosition.Y = inventory.GearNew.m_Position[2];
+                itemPosition.X = inventory.GearNew.m_Position[0];
+                itemPosition.Y = inventory.GearNew.m_Position[2];
 
-                UpdateMap();
+                UpdateMap(false);
             }
         }
     }
