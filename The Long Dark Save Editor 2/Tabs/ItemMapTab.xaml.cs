@@ -177,7 +177,7 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
                 scaleOfItemIcon.ScaleY = 1 / scaleMap.ScaleY;
             }
 
-            UpdatePlayerPosition();
+            UpdatePlayerPosition(mapInfo);
         }
 
         private void canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -247,20 +247,44 @@ namespace The_Long_Dark_Save_Editor_2.Tabs
             scaleOfItemIcon.ScaleY = 1 / scaleMap.ScaleY;
         }
 
-        private void UpdatePlayerPosition()
+        private void UpdatePlayerPosition(MapInfo mapInfo)
         {
-            var pPoint = mapInfo.ToLayer(playerPosition);
+            var pPoint = playerPosition;
+
+            pPoint = RotateAtAngle(pPoint, mapInfo.angle);
+            pPoint = mapInfo.ToLayer(RotateAtAngle(playerPosition, mapInfo.angle));
 
             Canvas.SetLeft(player, pPoint.X);
             Canvas.SetTop(player, pPoint.Y);
 
-            var iPoint = mapInfo.ToLayer(itemPosition);
+            var iPoint = itemPosition;
+
+            iPoint = RotateAtAngle(iPoint, mapInfo.angle);
+            iPoint = mapInfo.ToLayer(iPoint);
 
             Canvas.SetLeft(cross, iPoint.X);
             Canvas.SetTop(cross, iPoint.Y);
 
         }
 
+        public static Point RotateAtAngle(Point vector, double angle, bool isClockwiseRotation = false)
+        {
+            double preCalcCos = Math.Cos(angle * (Math.PI / 180));
+            double preCalcSin = Math.Sin(angle * (Math.PI / 180));
+            Point result = default;
+
+            if (isClockwiseRotation)
+            {
+                result.X = vector.X * preCalcCos + vector.Y * preCalcSin;
+                result.Y = -vector.X * preCalcSin + vector.Y * preCalcCos;
+            }
+            else
+            {
+                result.X = vector.X * preCalcCos - vector.Y * preCalcSin;
+                result.Y = vector.X * preCalcSin + vector.Y * preCalcCos;
+            }
+            return result;
+        }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {

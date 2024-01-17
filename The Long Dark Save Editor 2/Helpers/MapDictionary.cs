@@ -11,15 +11,14 @@ namespace The_Long_Dark_Save_Editor_2.Helpers
         public int width;
         public int height;
         public float pixelsPerCoordinate;
+        public float angle;
         public Point ToRegion(Point point)
         {
-            return new Point((point.X - origo.X) / pixelsPerCoordinate,
-                    (point.Y - origo.Y) / -pixelsPerCoordinate);
+            return new Point((point.X - origo.X) / pixelsPerCoordinate, (point.Y - origo.Y) / -pixelsPerCoordinate);
         }
         public Point ToLayer(Point point)
         {
-            return new Point(point.X * pixelsPerCoordinate + origo.X,
-                    point.Y * -pixelsPerCoordinate + origo.Y);
+            return new Point(point.X * pixelsPerCoordinate + origo.X, point.Y * -pixelsPerCoordinate + origo.Y);
         }
     }
 
@@ -41,11 +40,12 @@ namespace The_Long_Dark_Save_Editor_2.Helpers
             { "MountainTownRegion", new MapInfo {origo = new Point(62, 3864), width = 3500, height = 4231, pixelsPerCoordinate = 1.5f} },
             { "RavineTransitionZone", new MapInfo {origo = new Point(1949, 830), width = 2350, height = 1464, pixelsPerCoordinate = 1.5f} },
             { "RiverValleyRegion", new MapInfo {origo = new Point(159, 2977), width = 3200, height = 3401, pixelsPerCoordinate = 1.5f} },
-            { "RuralRegion", new MapInfo {origo = new Point(80, -124), width = 4950, height = 4926, pixelsPerCoordinate = 1.5f} },
-            { "TracksRegion", new MapInfo {origo = new Point(-12, 459), width = 2600, height = 2325, pixelsPerCoordinate = 1.39625f} },
+            //{ "RuralRegion", new MapInfo {origo = new Point(-124, 4870), width = 4926, height = 4950, pixelsPerCoordinate = 1.5f} },
+            { "RuralRegion", new MapInfo {origo = new Point(80, -124), width = 4950, height = 4926, pixelsPerCoordinate = 1.5f, angle = -90} },
+            { "TracksRegion", new MapInfo {origo = new Point(-12, 459), width = 2600, height = 2325, pixelsPerCoordinate = 1.39625f, angle = -90} },
             { "WhalingStationRegion", new MapInfo {origo = new Point(174, 2730), width = 2610, height = 2751, pixelsPerCoordinate = 1.5f} },
             { "WindingRiverRegion", new MapInfo {origo = new Point(1436, 2218), width = 3850, height = 3325, pixelsPerCoordinate = 2.366666666666667f} },
-            { "blank", new MapInfo {origo = new Point(1436, 2218), width = 3850, height = 3325, pixelsPerCoordinate = 1} },
+            { "blank", new MapInfo {origo = new Point(1436, 2218), width = 3850, height = 3325, pixelsPerCoordinate = 10f} },
         };
 
         public static List<string> MapNames

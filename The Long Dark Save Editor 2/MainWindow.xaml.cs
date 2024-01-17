@@ -231,15 +231,15 @@ namespace The_Long_Dark_Save_Editor_2
 
         async public void LogOpen()
         {
-            try
-            {
-                WebClient webClient = new WebClient();
-                await webClient.DownloadStringTaskAsync("https://us-central1-tld-save-editor-2.cloudfunctions.net/editorOpened?version=" + Version);
-            }
-            catch (Exception ex)
-            {
+            //try
+            //{
+            //    WebClient webClient = new WebClient();
+            //    await webClient.DownloadStringTaskAsync("https://us-central1-tld-save-editor-2.cloudfunctions.net/editorOpened?version=" + Version);
+            //}
+            //catch (Exception ex)
+            //{
 
-            }
+            //}
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -281,7 +281,8 @@ namespace The_Long_Dark_Save_Editor_2
                     copy.Sort();
                     foreach (var item in copy)
                     {
-                        Regions.Add(new RegionWrapper() { Name = item, Description = item });
+                        if (MapDictionary.MapExists(item)) //разбанить для просмотра всего инвентаря
+                            Regions.Add(new RegionWrapper() { Name = item, Description = item });
                     }
                 }
             }
@@ -300,12 +301,12 @@ namespace The_Long_Dark_Save_Editor_2
 
         private void JoinDiscordClicked(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://discord.gg/evYPhQm");
+            //Process.Start("https://discord.gg/evYPhQm");
         }
 
         private void ViewOnGitHubClicked(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://github.com/FINDarkside/TLD-Save-Editor");
+            //Process.Start("https://github.com/FINDarkside/TLD-Save-Editor");
         }
 
         private void OpenBackupsClicked(object sender, RoutedEventArgs e)
