@@ -26,6 +26,7 @@
         <Image x:Key="HubRegion" Source="../Images/HubRegion.jpg"/>
         <Image x:Key="LongRailTransitionZone" Source="../Images/LongRailTransitionZone.jpg"/>
         <Image x:Key="WindingRiverRegion" Source="../Images/WindingRiverRegion.jpg"/>
+        <Image x:Key="MiningRegion" Source="../Images/MiningRegion.jpg"/>
 
     </UserControl.Resources>
     <Canvas x:Name="canvas" Height="{Binding ActualHeight, ElementName=userControl, Mode=OneWay}" MouseLeftButtonDown="canvas_MouseLeftButtonDown" MouseWheel="canvas_MouseWheel" MouseMove="canvas_MouseMove"  

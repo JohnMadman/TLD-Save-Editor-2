@@ -37,15 +37,16 @@ namespace The_Long_Dark_Save_Editor_2.Helpers
             { "LakeRegion", new MapInfo {origo = new Point(397, 3065), width = 3246, height = 3500, pixelsPerCoordinate = 1.5f} },
             { "LongRailTransitionZone", new MapInfo {origo = new Point(1991, 4927), width = 4096, height = 8213, pixelsPerCoordinate = 3.375789473684211f} },
             { "MarshRegion", new MapInfo {origo = new Point(211, 3531), width = 3200, height = 3894, pixelsPerCoordinate = 1.5f} },
-            { "MountainTownRegion", new MapInfo {origo = new Point(62, 3864), width = 3500, height = 4231, pixelsPerCoordinate = 1.5f} },
+            { "MountainTownRegion", new MapInfo {origo = new Point(62, 3864), width = 3500, height = 4231, pixelsPerCoordinate = 1.5f, angle = 0} },
             { "RavineTransitionZone", new MapInfo {origo = new Point(1949, 830), width = 2350, height = 1464, pixelsPerCoordinate = 1.5f} },
             { "RiverValleyRegion", new MapInfo {origo = new Point(159, 2977), width = 3200, height = 3401, pixelsPerCoordinate = 1.5f} },
-            //{ "RuralRegion", new MapInfo {origo = new Point(-124, 4870), width = 4926, height = 4950, pixelsPerCoordinate = 1.5f} },
             { "RuralRegion", new MapInfo {origo = new Point(80, -124), width = 4950, height = 4926, pixelsPerCoordinate = 1.5f, angle = -90} },
             { "TracksRegion", new MapInfo {origo = new Point(-12, 459), width = 2600, height = 2325, pixelsPerCoordinate = 1.39625f, angle = -90} },
             { "WhalingStationRegion", new MapInfo {origo = new Point(174, 2730), width = 2610, height = 2751, pixelsPerCoordinate = 1.5f} },
             { "WindingRiverRegion", new MapInfo {origo = new Point(1436, 2218), width = 3850, height = 3325, pixelsPerCoordinate = 2.366666666666667f} },
             { "blank", new MapInfo {origo = new Point(1436, 2218), width = 3850, height = 3325, pixelsPerCoordinate = 10f} },
+            { "DamRiverTransitionZoneB", new MapInfo {origo = new Point(-715, 4055), width = 4096, height = 4096, pixelsPerCoordinate = 5f} },
+            { "MiningRegion", new MapInfo {origo = new Point(1450, 950), width = 2513, height = 2316, pixelsPerCoordinate = 1f} },
         };
 
         public static List<string> MapNames

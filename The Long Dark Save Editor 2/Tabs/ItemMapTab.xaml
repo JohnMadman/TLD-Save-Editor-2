@@ -27,6 +27,8 @@
         <Image x:Key="LongRailTransitionZone" Source="../Images/LongRailTransitionZone.jpg"/>
         <Image x:Key="WindingRiverRegion" Source="../Images/WindingRiverRegion.jpg"/>
         <Image x:Key="blank" Source="../Images/blank.jpg"/>
+        <Image x:Key="DamRiverTransitionZoneB" Source="../Images/DamRiverTransitionZoneB.jpg"/>
+        <Image x:Key="MiningRegion" Source="../Images/MiningRegion.jpg"/>
 
     </UserControl.Resources>
     <Grid>
